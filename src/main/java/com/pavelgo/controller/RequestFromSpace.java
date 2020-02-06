@@ -19,7 +19,7 @@ public class RequestFromSpace {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/space")
-    public void getResponseFromSpace(@RequestBody String responseBody) {
-        System.out.println(responseBody);
+    public void getResponseFromSpace() {
+        System.out.println("notify");
     }
 }
