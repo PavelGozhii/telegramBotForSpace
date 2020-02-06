@@ -1,24 +1,24 @@
 package com.pavelgo.model.absense;
 
 /**
- * Created by u7070 on 05.02.2020.
+ * Created by u7070 on 06.02.2020.
  */
 public class Reason {
 
-    private String id;
+    private String name;
 
-    public String getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "Reason{" +
-                "id='" + id + '\'' +
+                "name='" + name + '\'' +
                 '}';
     }
 }

@@ -1,11 +1,8 @@
 package com.pavelgo.model.absense;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 /**
- * Created by u7070 on 05.02.2020.
+ * Created by u7070 on 06.02.2020.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Member {
 
     private String id;
@@ -25,4 +22,3 @@ public class Member {
                 '}';
     }
 }
-

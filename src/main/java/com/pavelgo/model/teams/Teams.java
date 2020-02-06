@@ -1,18 +1,18 @@
-package com.pavelgo.model.absense;
+package com.pavelgo.model.teams;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Arrays;
 
 /**
- * Created by u7070 on 05.02.2020.
+ * Created by u7070 on 06.02.2020.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Absence {
+public class Teams {
 
     private String next;
 
-    private Integer totalCount;
+    private String totalCount;
 
     private Data[] data;
 
@@ -24,11 +24,11 @@ public class Absence {
         this.next = next;
     }
 
-    public Integer getTotalCount() {
+    public String getTotalCount() {
         return totalCount;
     }
 
-    public void setTotalCount(Integer totalCount) {
+    public void setTotalCount(String totalCount) {
         this.totalCount = totalCount;
     }
 
@@ -42,9 +42,9 @@ public class Absence {
 
     @Override
     public String toString() {
-        return "Absence{" +
+        return "Teams{" +
                 "next='" + next + '\'' +
-                ", totalCount=" + totalCount +
+                ", totalCount='" + totalCount + '\'' +
                 ", data=" + Arrays.toString(data) +
                 '}';
     }

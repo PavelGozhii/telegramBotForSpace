@@ -1,23 +1,9 @@
 package com.pavelgo;
 
-import com.pavelgo.model.OauthResponse;
 import com.pavelgo.model.absense.Absence;
-import com.pavelgo.model.profile.Profile;
+import com.pavelgo.model.teams.Teams;
 import com.pavelgo.services.SpaceService;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.http.HttpHost;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.glassfish.grizzly.http.HttpHeader;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.RestTemplate;
+import com.pavelgo.services.TelegramService;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
@@ -28,8 +14,6 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +24,8 @@ public class Bot extends TelegramLongPollingBot {
 
     private SpaceService spaceService = new SpaceService();
 
+    private TelegramService telegramService = new TelegramService();
+
     protected Bot(DefaultBotOptions botOptions) {
         super(botOptions);
     }
@@ -47,7 +33,10 @@ public class Bot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         try {
             Absence absence = spaceService.getAbsenses();
-            sendMsg(update.getMessage().getChatId().toString(), absence.getData()[0].getDescription());
+            Teams teams = spaceService.getTeams();
+            String teamsResponse = telegramService.generateReportForTeams(teams);
+            sendMsg(update.getMessage().getChatId().toString(), teamsResponse);
+            sendMsg(update.getMessage().getChatId().toString(), telegramService.getAbsenceInfo(absence));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -76,8 +65,7 @@ public class Bot extends TelegramLongPollingBot {
         List<KeyboardRow> keyboardRowList = new ArrayList<>();
         KeyboardRow keyboardFirstRow = new KeyboardRow();
 
-        keyboardFirstRow.add(new KeyboardButton("/absence"));
-        keyboardFirstRow.add(new KeyboardButton("you are pidor"));
+        keyboardFirstRow.add(new KeyboardButton("/teams"));
 
         keyboardRowList.add(keyboardFirstRow);
         replyKeyboardMarkup.setKeyboard(keyboardRowList);
