@@ -16,6 +16,7 @@ public class RequestFromSpace {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         return "Работає";
     }
+
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/space")
     public void getResponseFromSpace() {
