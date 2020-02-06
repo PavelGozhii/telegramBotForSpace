@@ -14,7 +14,7 @@ public class RequestFromSpace {
     @GetMapping("/test")
     private String test(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        return "OK";
+        return "Работає";
     }
 
     @ResponseStatus(HttpStatus.OK)

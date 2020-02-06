@@ -32,6 +32,7 @@ public class Bot extends TelegramLongPollingBot {
 
     public void onUpdateReceived(Update update) {
         try {
+            System.out.println("Chat id " + update.getMessage().getChatId().toString());
             Absence absence = spaceService.getAbsenses();
             Teams teams = spaceService.getTeams();
             String teamsResponse = telegramService.generateReportForTeams(teams);
